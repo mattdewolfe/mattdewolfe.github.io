@@ -1,10 +1,87 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<!doctype html>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html> <!--<![endif]-->
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Title</title>
+  <title>Project-4x</title>
+  <link href="css/styles.css" rel="stylesheet" type="text/css">
 </head>
-    <body>
-        <p>This is my web page</p>
-    </body>
+<body>
+  <script src="js/phaser.js"></script>
+  <script src="js/game.js"></script>
+  <script type="text/javascript">
+    /* Below we will override the basic Phaser game in order to allow
+    ** the incorporation of any global variables or methods, as well as setting
+    ** said values based on the device, orientation, resolution, etc
+    */
+    Game = function (game) {
+
+      //	When a State is added to Phaser it automatically has the following properties set on it, even if they already exist:
+
+      this.game;		//	a reference to the currently running game
+      this.add;		//	used to add sprites, text, groups, etc
+      this.camera;	//	a reference to the game camera
+      this.cache;		//	the game cache
+      this.input;		//	the global input manager (you can access this.input.keyboard, this.input.mouse, as well from it)
+      this.load;		//	for preloading assets
+      this.math;		//	lots of useful common math operations
+      this.sound;		//	the sound manager - add a sound, play one, set-up markers, etc
+      this.stage;		//	the game stage
+      this.time;		//	the clock
+      this.tweens;	//	the tween manager
+      this.world;		//	the game world
+      this.particles;	//	the particle manager
+      this.physics;	//	the physics manager
+      this.rnd;		//	the repeatable random number generator
+
+      //	You can use any of these from any function within this State.
+      //	But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
+
+    };
+
+    Game.prototype = {
+
+      preload: function () {
+      },
+
+      create: function () {
+      },
+
+      update: function () {
+      },
+
+      quitGame: function (pointer) {
+      },
+
+      pausedUpdate: function () {
+
+      }
+    };
+    (function () {
+      /* Use this space to define any global variables we want accessed across the scope of
+      ** all Phaser Game states
+      */
+      Game.gameWidth = 800;
+      Game.gameHeight = 600;
+
+      // Here we can define custom values for our game based on the device or resolution
+
+      var device = new Phaser.Device();
+      if(device.desktop){
+
+      }
+      device = null;
+      /* Use this space to define any global methods we want to to be
+      ** accessed by all Phaser Game States
+       */
+      Game.isGame = function(){
+        return true;
+      };
+    })();
+  </script>
+  <div id="project-4x"></div>
+  <p id="tips"> Press T to toggle Nav Point Rendering <br />
+  Press 1, 2, and 3 to change your active weapon</p>
+</body>
 </html>
