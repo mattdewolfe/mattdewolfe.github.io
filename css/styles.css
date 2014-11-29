@@ -11,8 +11,11 @@ body {
 }
 
 #tips {
+  border: 2px solid white;
+  left: 100px;
   color: orange;
   margin-left: auto;
   maggin-right: auto;
   align: center;
+  align-text: center;
 }

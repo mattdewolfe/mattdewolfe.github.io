@@ -15,31 +15,26 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/boot":7,"./states/gameover":8,"./states/menu":9,"./states/play":10,"./states/preload":11}],2:[function(require,module,exports){
+},{"./states/boot":10,"./states/gameover":11,"./states/menu":12,"./states/play":13,"./states/preload":14}],2:[function(require,module,exports){
 'use strict';
 
+var ShipStats = require('../prefabs/ShipStats');
 // need to add in steering requisite
 var BaseEnemyShip = function(game, x, y, shipType, target) {
   Phaser.Sprite.call(this, game, x, y, shipType);
 
   // Store the starting X value for reset
+  this.shipStats = new ShipStats('minion');
   this.startingX = this.x;
   this.target = target;
-  this.name = "enemyShip";
-  this.arriveRadius = 25;
-  this.arriveVelocity = 10;
-  this.seekAcceleration = 15;
-  this.arriveAcceleration = 5;
-  this.maxVelocity = 30;
-  this.fireRate = 300;
-  this.nextFire = 0;
-  this.withRange = false;
   this.anchor.setTo(0.5);
+  this.scale.setTo(0.65);
   // Enable physics
-  game.physics.enable(this, Phaser.Physics.ARCADE);
+  this.game.physics.enable(this, Phaser.Physics.ARCADE);
   this.body.enable = true;
   this.body.allowGravity = false;
-  this.body.setSize(this.width * 0.85, this.height * 0.85, 0, 0);
+  this.body.collideWorldBounds=true;
+  this.body.setSize(this.width, this.height, 0, 0);
 };
 
 BaseEnemyShip.prototype = Object.create(Phaser.Sprite.prototype);
@@ -57,16 +52,16 @@ BaseEnemyShip.prototype.update = function()
   //this.setVelocity(this.moveSpeed); // Set the current ships velocity
 };
 
-BaseEnemyShip.prototype.canFire = function()
+BaseEnemyShip.prototype.canFire = function(time)
 {
-  if (this.game.time.now > this.nextShot) {
-    this.fireRate = 200;
-    this.nextFire = this.game.time.now + this.fireRate;
-    return true;
-  }
-  else
-  {
-    return false;
+  if (this.shipStats.withinRange == true) {
+    if (time > this.shipStats.nextFire) {
+      this.shipStats.nextFire = time + this.shipStats.fireRate;
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 };
 
@@ -81,23 +76,22 @@ BaseEnemyShip.prototype.calculateSteering = function()
 
   var mag = Math.sqrt(x*x + y*y);
   // If enemy is with arrive radius, decrease speed
-  if (mag < this.arriveRadius){
+  if (mag < this.shipStats.arriveRadius){
     x = this.normalizeValue(x, mag);
     y = this.normalizeValue(y, mag);
-    x *= this.arriveAcceleration;
-    y *= this.arriveAcceleration;
-    this.withinRange = true;
+    x *= this.shipStats.arriveAcceleration;
+    y *= this.shipStats.arriveAcceleration;
+    this.shipStats.withinRange = true;
   }
   // If enemy is not with arrive radius, continue applying
   // steering motion
   else {
-    this.withinRange = false;
-   // Clamp target vector to the max velocity
-    if (mag > this.maxVelocity) {
+    // Clamp target vector to the max velocity
+    if (mag > this.shipStats.maxVelocity) {
       x = this.normalizeValue(x, mag);
       y = this.normalizeValue(y, mag);
-      x *= this.maxVelocity;
-      y *= this.maxVelocity;
+      x *= this.shipStats.maxVelocity;
+      y *= this.shipStats.maxVelocity;
     }
     // Subtract target vector from current velocity
     x -= this.body.velocity.x;
@@ -106,14 +100,13 @@ BaseEnemyShip.prototype.calculateSteering = function()
     // Check if new target vector is beyond max acceleration of ship
     mag = Math.sqrt(x * x + y * y);
     // If it is, normalize and clamp to max acceleration value
-    if (mag > this.maxAcceleration) {
+    if (mag > this.shipStats.maxAcceleration) {
       x = this.normalizeValue(x, mag);
       y = this.normalizeValue(y, mag);
-      x *= this.seekAcceleration;
-      y *= this.seekAcceleration;
+      x *= this.shipStats.seekAcceleration;
+      y *= this.shipStats.seekAcceleration;
     }
   }
-  console.log(this.target.body.position.x);
   this.setAcceleration(x, y);
 };
 
@@ -158,7 +151,7 @@ BaseEnemyShip.prototype.reset = function()
   this.kill();
   this.x = this.startingX;
   this.body.x = this.startingX;
-}
+};
 
 /**
  * Renders ships' physics body
@@ -170,7 +163,7 @@ BaseEnemyShip.prototype.render = function()
 
 module.exports = BaseEnemyShip;
 
-},{}],3:[function(require,module,exports){
+},{"../prefabs/ShipStats":8}],3:[function(require,module,exports){
 'use strict';
 
 var BigLaserProjectile = function(game, parent, targetX, targetY, type) {
@@ -183,16 +176,16 @@ var BigLaserProjectile = function(game, parent, targetX, targetY, type) {
   Phaser.Sprite.call(this, game, x, y, type, 0);
   this.anchor.setTo(0.5);
   this.scale.setTo(0.6);
-
+  this.damage = 3;
   this.animations.add(type);
   this.animations.play(type, 20, true);
 
   // Enable physics
-  game.physics.enable(this, Phaser.Physics.ARCADE);
+  this.game.physics.enable(this, Phaser.Physics.ARCADE);
   this.body.allowGravity = false;
   this.body.setSize(this.width*0.75, this.height*0.75, 0, 0);
-  this.body.velocity.x = Math.sin(rotation) * 150;
-  this.body.velocity.y = Math.cos(rotation) * 150;
+  this.body.velocity.x = Math.sin(rotation) * 250;
+  this.body.velocity.y = Math.cos(rotation) * 250;
 
   this.checkWorldBounds = true;
   this.outOfBoundsKill = true;
@@ -211,6 +204,75 @@ module.exports = BigLaserProjectile;
 },{}],4:[function(require,module,exports){
 'use strict';
 
+var MissileProjectile = function(game, parent, targetX, targetY, type) {
+  Phaser.Sprite.call(this, game, parent.x, parent.y, type);
+
+  this.anchor.setTo(0.5, 0.5);
+  this.game.physics.enable(this, Phaser.Physics.ARCADE);
+
+  // Define constants that affect motion
+  this.speed = 200; // missile speed pixels/second
+  this.turnRate = 7; // turn rate in degrees/frame
+  this.wobbleLimit = 5; // degrees
+  this.wobbleSpeed = 500; // milliseconds
+  this.damage = 5;
+  this.targetX = targetY;
+  this.targetY = targetX;
+  // Create a variable called wobble that tweens back and forth between
+  // -this.WOBBLE_LIMIT and +this.WOBBLE_LIMIT forever
+  this.wobble = this.wobbleLimit;
+  this.game.add.tween(this)
+    .to(
+    {wobble: -this.wobbleLimit }, this.wobbleSpeed, Phaser.Easing.Sinusoidal.InOut, true, 0,
+    Number.POSITIVE_INFINITY, true );
+};
+
+MissileProjectile.prototype = Object.create(Phaser.Sprite.prototype);
+MissileProjectile.prototype.constructor = MissileProjectile;
+
+MissileProjectile.prototype.update = function() {
+  // Calculate the angle from the missile to the mouse cursor game.input.x
+  // and game.input.y are the mouse position; substitute with whatever
+  // target coordinates you need.
+  var targetAngle = this.game.math.angleBetween(this.x, this.y, this.targetX, this.targetY);
+
+  // Add our "wobble" factor to the targetAngle to make the missile wobble
+  targetAngle += this.game.math.degToRad(this.wobble);
+
+  // Gradually aim the missile towards the target angle
+  if (this.rotation !== targetAngle) {
+      // Calculate difference between the current angle and targetAngle
+      var delta = targetAngle - this.rotation;
+
+      // Keep it in range from -180 to 180 to make the most efficient turns.
+      if (delta > Math.PI) delta -= Math.PI * 2;
+      if (delta < -Math.PI) delta += Math.PI * 2;
+
+      if (delta > 0)
+      {
+        this.angle += this.turnRate;
+      }
+      else
+      {
+        this.angle -= this.turnRate;
+      }
+
+    // Just set angle to target angle if they are close
+    if (Math.abs(delta) < this.game.math.degToRad(this.turnRate)) {
+      this.rotation = targetAngle;
+    }
+  }
+
+  // Calculate velocity vector based on this.rotation and this.SPEED
+  this.body.velocity.x = Math.cos(this.rotation) * this.speed;
+  this.body.velocity.y = Math.sin(this.rotation) * this.speed;
+};
+
+module.exports = MissileProjectile;
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
 // need to add in steering requisite
 var NavPoint = function(game, x, y) {
   Phaser.Sprite.call(this, game, x, y, 'navPoint');
@@ -219,7 +281,7 @@ var NavPoint = function(game, x, y) {
   this.anchor.setTo(0.5);
   this.game.add.existing(this);
   // Enable physics
-  game.physics.enable(this, Phaser.Physics.ARCADE);
+  this.game.physics.enable(this, Phaser.Physics.ARCADE);
   this.body.allowGravity = false;
   this.body.setSize(this.width * 0.85, this.height * 0.85, 0, 0);
   this.body.allowRotation = false;
@@ -250,7 +312,7 @@ NavPoint.prototype.render = function()
 
 module.exports = NavPoint;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 // need to add in steering requisite
@@ -258,14 +320,14 @@ var PlayerShip = function(game) {
   Phaser.Sprite.call(this, game, Game.gameWidth/2, Game.gameHeight/2, 'playerShip');
 
   this.name = "player";
-  this.health = 999;
+  this.health = 99;
   this.fireRate = 200;
   this.nextFire = 0;
-  this.currentWeapon = 0;
+  this.currentWeapon = 1;
   this.anchor.setTo(0.5);
-  this.game.add.existing(this);
+  game.add.existing(this);
   // Enable physics
-  game.physics.enable(this, Phaser.Physics.ARCADE);
+  this.game.physics.enable(this, Phaser.Physics.ARCADE);
   this.body.allowGravity = false;
   this.body.setSize(this.width * 0.85, this.height * 0.85, 0, 0);
   this.body.allowRotation = false;
@@ -290,11 +352,11 @@ PlayerShip.prototype.CanFire = function() {
       this.nextFire = this.game.time.now + this.fireRate;
     }
     else if (this.currentWeapon == 2) {
-      this.fireRate = 300;
+      this.fireRate = 800;
       this.nextFire = this.game.time.now + this.fireRate;
     }
     else if (this.currentWeapon == 3) {
-      this.fireRate = 900;
+      this.fireRate = 500;
       this.nextFire = this.game.time.now + this.fireRate;
     }
     return true;
@@ -343,7 +405,282 @@ PlayerShip.prototype.render = function()
 
 module.exports = PlayerShip;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
+'use strict';
+
+var ShipStats = require('../prefabs/ShipStats');
+// need to add in steering requisite
+var RogueEnemyShip = function(game, x, y, shipType, target) {
+  Phaser.Sprite.call(this, game, x, y, shipType);
+
+  // Store the starting X value for reset
+  this.shipStats = new ShipStats('rogue');
+  this.startingX = this.x;
+  this.target = target;
+  this.anchor.setTo(0.5);
+  this.scale.setTo(0.85);
+  this.turnRate = 2;
+  this.wander = 0;
+  this.wanderRate = 2;
+  this.wanderRange = 100;
+  // Enable physics
+  this.game.physics.enable(this, Phaser.Physics.ARCADE);
+  this.body.enable = true;
+  this.body.allowGravity = false;
+  this.body.collideWorldBounds=true;
+  this.body.setSize(this.width, this.height, 0, 0);
+  this.targetFound = false;
+};
+
+RogueEnemyShip.prototype = Object.create(Phaser.Sprite.prototype);
+RogueEnemyShip.prototype.constructor = RogueEnemyShip;
+
+/**
+ * Updates the sprite every frame
+ */
+RogueEnemyShip.prototype.update = function()
+{
+  this.checkBounds();
+  this.calculateSteering();
+  this.checkWandering();
+};
+
+RogueEnemyShip.prototype.checkWandering = function()
+{
+  this.wander += this.wanderRate;
+  var flip = false;
+  // this is greater than 0, we are adding to x on wander
+  if (this.wanderRate > 0)
+  {
+    if (this.wander > this.wanderRange)
+    {
+      var flip = true;
+    }
+  }
+  // Otherwise we are subtracting from x
+  else
+  {
+    if (this.wander < this.wanderRange)
+    {
+      var flip = true;
+    }
+  }
+  if (flip === true)
+  {
+    this.wanderRate *= -1;
+    this.wanderRange *= -1;
+  }
+};
+
+RogueEnemyShip.prototype.canFire = function(time)
+{
+  if (this.shipStats.withinRange == true)
+  {
+    if (time > this.shipStats.nextFire)
+    {
+      this.shipStats.nextFire = time + this.shipStats.fireRate;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+};
+
+// Calculate target vector depending on steering pattern
+RogueEnemyShip.prototype.calculateSteering = function()
+{
+  var x;
+  var y;
+  // Calculate velocity to target position
+  x = this.target.body.position.x - this.body.position.x;
+  y = this.target.body.position.y - this.body.position.y;
+
+  var mag = Math.sqrt(x*x + y*y);
+  // If enemy is with arrive radius, decrease speed
+  if (mag < this.shipStats.arriveRadius){
+    this.targetFound = true;
+  }
+  // If enemy is not with arrive radius, continue applying
+  // steering motion
+  else {
+    // Clamp target vector to the max velocity
+    if (mag > this.shipStats.maxVelocity) {
+      x = this.normalizeValue(x, mag);
+      y = this.normalizeValue(y, mag);
+      x *= this.shipStats.maxVelocity;
+      y *= this.shipStats.maxVelocity;
+    }
+    // Subtract target vector from current velocity
+    x -= this.body.velocity.x;
+    y -= this.body.velocity.y;
+
+    // Check if new target vector is beyond max acceleration of ship
+    mag = Math.sqrt(x * x + y * y);
+    // If it is, normalize and clamp to max acceleration value
+    if (mag > this.shipStats.maxAcceleration) {
+      x = this.normalizeValue(x, mag);
+      y = this.normalizeValue(y, mag);
+      x *= this.shipStats.seekAcceleration;
+      y *= this.shipStats.seekAcceleration;
+    }
+  }
+  this.body.acceleration.x = x+this.wander;
+  this.body.acceleration.y = y;
+
+  var targetAngle = this.game.math.angleBetween(this.x, this.y,
+    this.target.x, this.target.y);
+  if (this.rotation !== targetAngle)
+  {
+    var delta = targetAngle - this.rotation;
+
+    // Keep it in range from -180 to 180 to make the most efficient turns.
+    if (delta < Math.PI) delta -= Math.PI * 2;
+    if (delta > -Math.PI) delta += Math.PI * 2;
+
+    if (delta > 0)
+    {
+      this.angle += this.turnRate;
+    }
+    else
+    {
+      this.angle -= this.turnRate;
+    }
+  }
+};
+
+// Assign a new target for this ship
+RogueEnemyShip.prototype.newTarget = function(newTarget)
+{
+  this.target = newTarget;
+  this.targetFound = false;
+}
+/* Returns a normalized vector, presumes magnitude was just calculated and
+ * can be passed in again rather than being calculated a second time
+ * @parem (input vector, input vectorMag)
+ */
+RogueEnemyShip.prototype.normalizeValue = function(inVal, magnitude)
+{
+  return inVal/magnitude;
+};
+
+/**
+ * Checks if ship is out of world bounds
+ */
+RogueEnemyShip.prototype.checkBounds = function()
+{
+  if (this.x < -this.width || this.x > Game.gameWidth)
+  {
+    // Change steering
+  }
+  if (this.y < -this.height || this.y > Game.gameHeight + this.height)
+  {
+    // Change steering
+  }
+};
+
+/**
+ * Resets the velocity, sprite & body X positions
+ */
+RogueEnemyShip.prototype.reset = function()
+{
+  this.kill();
+  this.x = this.startingX;
+  this.body.x = this.startingX;
+};
+
+/**
+ * Renders ships' physics body
+ */
+RogueEnemyShip.prototype.render = function()
+{
+  this.game.debug.spriteInfo(this, 32, 32);
+};
+
+module.exports = RogueEnemyShip;
+
+},{"../prefabs/ShipStats":8}],8:[function(require,module,exports){
+'use strict';
+
+// need to add in steering requisite
+var ShipStats = function(shipClass) {
+
+  this.arriveRadius;
+  this.arriveVelocity;
+  this.seekAcceleration;
+  this.arriveAcceleration;
+  this.maxVelocity;
+  this.fireRate;
+  this.nextFire = 0;
+  this.withRange = false;
+  this.name = "";
+
+  this.Init(shipClass);
+};
+
+ShipStats.prototype.constructor = ShipStats;
+
+ShipStats.prototype.Init = function(shipClass)
+{
+  console.log('ship init');
+  // Rogue ships wander between points on the map
+  if (shipClass == 'rogue')
+  {
+    this.arriveRadius = 60;
+    this.arriveVelocity = 50;
+    this.seekAcceleration = 50;
+    this.arriveAcceleration = 50;
+    this.maxVelocity = 80;
+    this.fireRate = 500;
+    this.nextFire = 0;
+    this.withRange = true;
+    this.name = "rogue";
+  }
+  // Defenders follow along side a battleship
+  else if (shipClass == 'defender')
+  {
+    this.arriveRadius = 70;
+    this.arriveVelocity = 25;
+    this.seekAcceleration = 25;
+    this.arriveAcceleration = 15;
+    this.maxVelocity = 50;
+    this.fireRate = 800;
+    this.nextFire = 0;
+    this.withRange = true;
+    this.name = "defender";
+  }
+  // Battleships are slow moving and aggressively target the player
+  else if (shipClass == 'battleship')
+  {
+    this.arriveRadius = 50;
+    this.arriveVelocity = 10;
+    this.seekAcceleration = 15;
+    this.arriveAcceleration = 5;
+    this.maxVelocity = 60;
+    this.fireRate = 250;
+    this.nextFire = 0;
+    this.withRange = true;
+    this.name = "battleship";
+  }
+  // All other ships are minions that move to a nav point and fire on the player
+  else if (shipClass == 'minion')
+  {
+    this.arriveRadius = 25;
+    this.arriveVelocity = 12;
+    this.seekAcceleration = 25;
+    this.arriveAcceleration = 10;
+    this.maxVelocity = 50;
+    this.fireRate = 500;
+    this.nextFire = 0;
+    this.withRange = false;
+    this.name = "minion";
+  }
+};
+
+module.exports = ShipStats;
+
+},{}],9:[function(require,module,exports){
 'use strict';
 
 var SmallLaserProjectile = function(game, parent, targetX, targetY, type) {
@@ -356,7 +693,7 @@ var SmallLaserProjectile = function(game, parent, targetX, targetY, type) {
   Phaser.Sprite.call(this, game, x, y, type, 0);
   this.anchor.setTo(0.5);
   this.scale.setTo(0.25);
-
+  this.damage = 1;
   this.animations.add(type);
   this.animations.play(type, 20, true);
 
@@ -364,8 +701,8 @@ var SmallLaserProjectile = function(game, parent, targetX, targetY, type) {
   game.physics.enable(this, Phaser.Physics.ARCADE);
   this.body.allowGravity = false;
   this.body.setSize(this.width*0.75, this.height*0.75, 0, 0);
-  this.body.velocity.x = Math.sin(rotation) * 250;
-  this.body.velocity.y = Math.cos(rotation) * 250;
+  this.body.velocity.x = Math.sin(rotation) * 175;
+  this.body.velocity.y = Math.cos(rotation) * 175;
 
   this.checkWorldBounds = true;
   this.outOfBoundsKill = true;
@@ -381,7 +718,7 @@ SmallLaserProjectile.prototype.update = function() {
 
 module.exports = SmallLaserProjectile;
 
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 'use strict';
 
@@ -400,7 +737,7 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],8:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -428,7 +765,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 function Menu() {}
 
@@ -460,27 +797,31 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],10:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
   'use strict';
   // Includes
   var BaseEnemyShip = require('../prefabs/BaseEnemyShip');
+  var RogueEnemyShip = require('../prefabs/RogueEnemyShip');
   var PlayerShip = require('../prefabs/PlayerShip');
   var NavPoint = require('../prefabs/NavPoint');
   var BigLaserProjectile = require('../prefabs/BigLaserProjectile');
   var SmallLaserProjectile = require('../prefabs/SmallLaserProjectile');
+  var MissileProjectile = require('../prefabs/MissileProjectile');
 
   function Play() {}
   Play.prototype = {
     create: function
   ()
   {
+    this.game.input.maxPointers = 1;
     this.enemySpawnTime = 3000;
     this.lastEnemySpawn = 0;
     this.enemySpawnCount = 0;
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    this.background = this.game.add.sprite(this.game, 0, 0, 'background');
-    this.playerLaserGroup = this.game.add.group();
-    this.enemyLaserGroup = this.game.add.group();
+    this.backgroundSprite = this.game.add.sprite(0, 0, 'backgroundSprite');
+    this.backgroundSprite.scale.setTo(4.0);
+    this.playerWeaponGroup = this.game.add.group();
+    this.enemyWeaponGroup = this.game.add.group();
     // Setup player ship
     this.playerShip = new PlayerShip(this.game);
     this.currentNavPoint = 0;
@@ -490,7 +831,12 @@ module.exports = Menu;
     this.setupNavPoints();
 
     this.setupKeys();
-    //this.sprite.events.onInputDown.add(this.clickListener, this);
+    this.hpText = this.game.add.text(20, 20, '',
+      {font: '20px Arial', fill: '#ffffff'} );
+    this.weaponText = this.game.add.text(this.game.width, 20, '',
+      {font: '20px Arial', fill: '#ffffff'} );
+    this.weaponText.setText('Weapon: Ion Cannon');
+    this.weaponText.x = this.game.width - this.weaponText.width - 20;
   },
 
   spawnEnemy: function () {
@@ -498,8 +844,14 @@ module.exports = Menu;
     if (this.game.time.now > this.lastEnemySpawn) {
       this.lastEnemySpawn = this.game.time.now + this.enemySpawnTime;
       // If so, check if this is the 6th enemy, which means spawn an overlord
-      if (this.enemySpawnCount==6) {
-
+      if (this.enemySpawnCount>0) {
+         // Spawn an enemy to a target navpoint
+        var enemy = new RogueEnemyShip(this.game, 20, Game.gameHeight - 20, 'orangeEnemyShip',
+          this.navPointGroup.getAt(this.currentNavPoint));
+        // Increment navpoint target value, and reset to 0 if exceeding cap
+        this.currentNavPoint += 1;
+        if (this.currentNavPoint > 4) { this.currentNavPoint = 0; }
+        this.basicShipGroup.add(enemy);
       }
       // If neither of the other spawns, spawn a standard arrive type enemy
       else {
@@ -508,30 +860,37 @@ module.exports = Menu;
           this.navPointGroup.getAt(this.currentNavPoint));
         // Increment navpoint target value, and reset to 0 if exceeding cap
         this.currentNavPoint += 1;
-        if (this.currentNavPoint > 3) { this.currentNavPoint = 0; }
-        enemy.setAcceleration(2, 0);
+        if (this.currentNavPoint > 4) { this.currentNavPoint = 0; }
+        enemy.setAcceleration(0, 0);
         this.basicShipGroup.add(enemy);
       }
+      this.enemySpawnCount+=1
     }
-
   },
   setupKeys: function () {
+    // Setup key listeners to be checked during update
     this.renderToggleKey = this.game.input.keyboard.addKey(Phaser.Keyboard.R);
     this.weapon1Key = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE);
     this.weapon2Key = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
     this.weapon3Key = this.game.input.keyboard.addKey(Phaser.Keyboard.THREE);
   },
+    // Drop a few nav points onto the map
   setupNavPoints: function() {
     var navPoint = new NavPoint(this.game, 85, 85);
     this.navPointGroup.add(navPoint);
-    navPoint = new NavPoint(this.game, Game.gameWidth - 100, Game.gameHeight - 100);
+    navPoint = new NavPoint(this.game, Game.gameWidth/2, 85);
     this.navPointGroup.add(navPoint);
-    var navPoint = new NavPoint(this.game, Game.gameWidth/2, 100);
+    var navPoint = new NavPoint(this.game, Game.gameWidth /8, Game.gameHeight/2);
     this.navPointGroup.add(navPoint);
-    navPoint = new NavPoint(this.game, Game.gameWidth - 75, 200);
+    var navPoint = new NavPoint(this.game, Game.gameWidth/2, Game.gameHeight - 85);
     this.navPointGroup.add(navPoint);
+    navPoint = new NavPoint(this.game, Game.gameWidth - 85, Game.gameHeight - 85);
+    this.navPointGroup.add(navPoint);
+
+    this.navPointGroup.visible = false;
   },
   update: function() {
+    this.hpText.setText('Health: ' + this.playerShip.health);
 
     if (this.game.input.activePointer.isDown)
     {
@@ -544,40 +903,83 @@ module.exports = Menu;
     if (this.weapon1Key.justPressed(30)==true)
     {
       this.playerShip.currentWeapon = 1;
+      this.weaponText.setText('Weapon: Ion Cannon');
+      this.weaponText.x = this.game.width - this.weaponText.width - 20;
     }
     if (this.weapon2Key.justPressed(30)==true)
     {
       this.playerShip.currentWeapon = 2;
+      this.weaponText.setText('Weapon: Flak Cannon');
+      this.weaponText.x = this.game.width - this.weaponText.width - 20;
     }
     if (this.weapon3Key.justPressed(30)==true)
     {
       this.playerShip.currentWeapon = 3;
+      this.weaponText.setText('Weapon: Flux Missile');
+      this.weaponText.x = this.game.width - this.weaponText.width - 20;
     }
 
     this.spawnEnemy();
-    this.game.physics.arcade.collide(this.playerLaserGroup, this.basicShipGroup, this.enemyHit, null, this)
-    this.game.physics.arcade.collide(this.basicShipGroup, this.basicShipGroup, this.enemyHit, null, this);
+    this.basicShipGroup.forEach(this.checkEnemyFireControl, this);
+    this.game.physics.arcade.overlap(this.playerWeaponGroup, this.basicShipGroup, this.enemyHit, null, this);
+    this.game.physics.arcade.overlap(this.enemyWeaponGroup, this.playerShip, this.playerHit, null, this)
+    this.game.physics.arcade.collide(this.basicShipGroup, this.basicShipGroup, null, null, this);
   },
-  enemyHit: function() {
-
+  // Collision callback for player being hit by enemy weapons
+  playerHit: function(weapon, ship)
+  {
+    weapon.kill();
+    ship.health -= weapon.damage;
+  },
+  // Collision callback for enemies being hit by player weapons
+  enemyHit: function(weapon, ship)
+  {
+    weapon.kill();
+    ship.kill();
+  },
+  checkEnemyFireControl: function(inShip) {
+    console.log('fire check');
+    if (inShip.canFire(this.game.time.now) === true)
+    {
+      var offX = Math.random(-10, 10);
+      var offY = Math.random(-10, 10);
+      var laser = new SmallLaserProjectile(this.game, inShip,
+        this.playerShip.body.position.x, this.playerShip.body.position.y, 'blueLaser');
+      console.log('shot fired');
+      this.enemyWeaponGroup.add(laser);
+    }
+    if (inShip.targetFound === true)
+    {
+      console.log('getting new target');
+      inShip.target = this.navPointGroup.getAt(this.currentNavPoint);
+    }
   },
   fire: function() {
     if (this.playerShip.CanFire() == true) {
       if (this.playerShip.currentWeapon == 1) {
         var laser = new BigLaserProjectile(this.game, this.playerShip,
           this.game.input.activePointer.x, this.game.input.activePointer.y, 'blueLaser');
-        this.playerLaserGroup.add(laser);
+        this.playerWeaponGroup.add(laser);
       }
       else if (this.playerShip.currentWeapon == 2) {
         var laser = new SmallLaserProjectile(this.game, this.playerShip,
-          this.game.input.activePointer.x+64, this.game.input.activePointer.y, 'redLaser');
-        this.playerLaserGroup.add(laser);
+          this.game.input.activePointer.x+90, this.game.input.activePointer.y, 'redLaser');
+        this.playerWeaponGroup.add(laser);
         var laser = new SmallLaserProjectile(this.game, this.playerShip,
-          this.game.input.activePointer.x-64, this.game.input.activePointer.y, 'redLaser');
-        this.playerLaserGroup.add(laser);
+          this.game.input.activePointer.x+35, this.game.input.activePointer.y, 'redLaser');
+        this.playerWeaponGroup.add(laser);
+        var laser = new SmallLaserProjectile(this.game, this.playerShip,
+          this.game.input.activePointer.x-35, this.game.input.activePointer.y, 'redLaser');
+        this.playerWeaponGroup.add(laser);
+        var laser = new SmallLaserProjectile(this.game, this.playerShip,
+          this.game.input.activePointer.x-90, this.game.input.activePointer.y, 'redLaser');
+        this.playerWeaponGroup.add(laser);
       }
       else if (this.playerShip.currentWeapon == 3) {
-
+        var x = this.game.input.activePointer.x;
+        var y = this.game.input.activePointer.y;
+        var missle = new MissileProjectile(this.game, this.playerShip, x, y, 'greenMissle');
+        this.playerWeaponGroup.add(missle);
       }
     }
   },
@@ -589,7 +991,7 @@ module.exports = Menu;
 
   module.exports = Play;
 
-},{"../prefabs/BaseEnemyShip":2,"../prefabs/BigLaserProjectile":3,"../prefabs/NavPoint":4,"../prefabs/PlayerShip":5,"../prefabs/SmallLaserProjectile":6}],11:[function(require,module,exports){
+},{"../prefabs/BaseEnemyShip":2,"../prefabs/BigLaserProjectile":3,"../prefabs/MissileProjectile":4,"../prefabs/NavPoint":5,"../prefabs/PlayerShip":6,"../prefabs/RogueEnemyShip":7,"../prefabs/SmallLaserProjectile":9}],14:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -613,12 +1015,14 @@ Preload.prototype = {
     this.game.load.audio('splashSFX'  , 'assets/audio/Kayyy-Wave.mp3');
     this.game.load.audio('sparkleSFX' , 'assets/audio/Sparkle-Robinhood76.mp3');*/
 
-    this.load.image('background', 'assets/black.png');
+    this.load.image('backgroundSprite', 'assets/black.png');
     this.load.image('playerShip', 'assets/playerShip.png');
     this.load.image('redEnemyShip', 'assets/enemy_red.png');
     this.load.image('yellowEnemyShip', 'assets/enemy_yellow.png');
     this.load.image('orangeEnemyShip', 'assets/enemy_orange.png');
     this.load.image('navPoint', 'assets/waypoint.png');
+    this.load.image('greenMissle', 'assets/greenMissle.png');
+    this.load.image('yellowMissle', 'assets/yellowMissle.png');
 
     this.load.atlasJSONHash('redLaser', 'assets/redLaserAnim.png', 'assets/redLaserAnim.json');
     this.load.atlasJSONHash('blueLaser', 'assets/blueLaserAnim.png', 'assets/blueLaserAnim.json');
