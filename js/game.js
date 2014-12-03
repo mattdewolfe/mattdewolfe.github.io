@@ -15,7 +15,7 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/boot":11,"./states/gameover":12,"./states/menu":13,"./states/play":14,"./states/preload":15}],2:[function(require,module,exports){
+},{"./states/boot":10,"./states/gameover":11,"./states/menu":12,"./states/play":13,"./states/preload":14}],2:[function(require,module,exports){
 'use strict';
 
 var ShipStats = require('../prefabs/ShipStats');
@@ -172,45 +172,6 @@ BaseEnemyShip.prototype.render = function()
 module.exports = BaseEnemyShip;
 
 },{"../prefabs/ShipStats":9}],3:[function(require,module,exports){
-'use strict';
-
-var BigLaserProjectile = function(game, parent, targetX, targetY, type) {
-  var x = parent.body.position.x + parent.width/2;
-  var y = parent.body.position.y + parent.height/2;
-  var rotation = Phaser.Math.angleBetween(x, y, targetX, targetY);
-  x += Math.sin(rotation) * 32;
-  y += Math.cos(rotation) * 32;
-
-  Phaser.Sprite.call(this, game, x, y, type, 0);
-  this.anchor.setTo(0.5);
-  this.scale.setTo(0.6);
-  this.damage = 50;
-  this.animations.add(type);
-  this.animations.play(type, 20, true);
-  this.game.add.existing(this);
-
-  // Enable physics
-  this.game.physics.enable(this, Phaser.Physics.ARCADE);
-  this.body.allowGravity = false;
-  this.body.setSize(this.width*0.75, this.height*0.75, 0, 0);
-  this.body.velocity.x = Math.sin(rotation) * 250;
-  this.body.velocity.y = Math.cos(rotation) * 250;
-
-  this.checkWorldBounds = true;
-  this.outOfBoundsKill = true;
-
-};
-
-BigLaserProjectile.prototype = Object.create(Phaser.Sprite.prototype);
-BigLaserProjectile.prototype.constructor = BigLaserProjectile;
-
-BigLaserProjectile.prototype.update = function() {
-
-};
-
-module.exports = BigLaserProjectile;
-
-},{}],4:[function(require,module,exports){
 'use strict';
 
 var ShipStats = require('../prefabs/ShipStats');
@@ -374,7 +335,46 @@ BossEnemyShip.prototype.render = function()
 
 module.exports = BossEnemyShip;
 
-},{"../prefabs/ShipStats":9}],5:[function(require,module,exports){
+},{"../prefabs/ShipStats":9}],4:[function(require,module,exports){
+'use strict';
+
+var SmallLaserProjectile = function(game, parent, targetX, targetY, type, scale, damage) {
+  var x = parent.body.position.x + parent.width/2;
+  var y = parent.body.position.y + parent.height/2;
+  var rotation = Phaser.Math.angleBetween(x, y, targetX, targetY);
+  x += Math.sin(rotation) * 32;
+  y += Math.cos(rotation) * 32;
+
+  Phaser.Sprite.call(this, game, x, y, type, 0);
+  this.anchor.setTo(0.5);
+  this.scale.setTo(scale);
+  this.damage = damage;
+  this.animations.add(type);
+  this.animations.play(type, 20, true);
+  this.game.add.existing(this);
+
+  // Enable physics
+  game.physics.enable(this, Phaser.Physics.ARCADE);
+  this.body.allowGravity = false;
+  this.body.setSize(this.width*0.75, this.height*0.75, 0, 0);
+  this.body.velocity.x = Math.sin(rotation) * 175;
+  this.body.velocity.y = Math.cos(rotation) * 175;
+
+  this.checkWorldBounds = true;
+  this.outOfBoundsKill = true;
+
+};
+
+SmallLaserProjectile.prototype = Object.create(Phaser.Sprite.prototype);
+SmallLaserProjectile.prototype.constructor = SmallLaserProjectile;
+
+SmallLaserProjectile.prototype.update = function() {
+
+};
+
+module.exports = SmallLaserProjectile;
+
+},{}],5:[function(require,module,exports){
 'use strict';
 
 var MissileProjectile = function(game, parent, target, type) {
@@ -496,7 +496,7 @@ var PlayerShip = function(game) {
   Phaser.Sprite.call(this, game, Game.gameWidth/2, Game.gameHeight/2, 'playerShip');
 
   this.name = "player";
-  this.health = 9999;
+  this.health = 999;
   this.fireRate = 200;
   this.nextFire = 0;
   this.currentWeapon = 1;
@@ -824,45 +824,6 @@ ShipStats.prototype.init = function(shipClass)
 module.exports = ShipStats;
 
 },{}],10:[function(require,module,exports){
-'use strict';
-
-var SmallLaserProjectile = function(game, parent, targetX, targetY, type) {
-  var x = parent.body.position.x + parent.width/2;
-  var y = parent.body.position.y + parent.height/2;
-  var rotation = Phaser.Math.angleBetween(x, y, targetX, targetY);
-  x += Math.sin(rotation) * 32;
-  y += Math.cos(rotation) * 32;
-
-  Phaser.Sprite.call(this, game, x, y, type, 0);
-  this.anchor.setTo(0.5);
-  this.scale.setTo(0.25);
-  this.damage = 1;
-  this.animations.add(type);
-  this.animations.play(type, 20, true);
-  this.game.add.existing(this);
-
-  // Enable physics
-  game.physics.enable(this, Phaser.Physics.ARCADE);
-  this.body.allowGravity = false;
-  this.body.setSize(this.width*0.75, this.height*0.75, 0, 0);
-  this.body.velocity.x = Math.sin(rotation) * 175;
-  this.body.velocity.y = Math.cos(rotation) * 175;
-
-  this.checkWorldBounds = true;
-  this.outOfBoundsKill = true;
-
-};
-
-SmallLaserProjectile.prototype = Object.create(Phaser.Sprite.prototype);
-SmallLaserProjectile.prototype.constructor = SmallLaserProjectile;
-
-SmallLaserProjectile.prototype.update = function() {
-
-};
-
-module.exports = SmallLaserProjectile;
-
-},{}],11:[function(require,module,exports){
 
 'use strict';
 
@@ -881,7 +842,7 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -906,7 +867,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 function Menu() {}
 
@@ -938,7 +899,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
   'use strict';
   // Includes
   var BaseEnemyShip = require('../prefabs/BaseEnemyShip');
@@ -946,8 +907,7 @@ module.exports = Menu;
   var RogueEnemyShip = require('../prefabs/RogueEnemyShip');
   var PlayerShip = require('../prefabs/PlayerShip');
   var NavPoint = require('../prefabs/NavPoint');
-  var BigLaserProjectile = require('../prefabs/BigLaserProjectile');
-  var SmallLaserProjectile = require('../prefabs/SmallLaserProjectile');
+  var LaserProjectile = require('../prefabs/LaserProjectile');
   var MissileProjectile = require('../prefabs/MissileProjectile');
 
   function Play() {}
@@ -1172,8 +1132,8 @@ module.exports = Menu;
       {
         var offX = Math.random(-10, 10);
         var offY = Math.random(-10, 10);
-        var laser = new SmallLaserProjectile(this.game, inShip,
-          this.playerShip.x, this.playerShip.y, 'blueLaser');
+        var laser = new LaserProjectile(this.game, inShip,
+          this.playerShip.x, this.playerShip.y, 'blueLaser', 0.25, 1);
         this.enemyWeaponGroup.add(laser);
       }
       else if (inShip.getName() === 'rogue')
@@ -1201,8 +1161,8 @@ module.exports = Menu;
       }
       else if (inShip.getName() === 'battleship')
       {
-        var laser = new BigLaserProjectile(this.game, inShip,
-          this.playerShip.x, this.playerShip.y, 'redLaser');
+        var laser = new LaserProjectile(this.game, inShip,
+          this.playerShip.x, this.playerShip.y, 'redLaser', 0.5, 10);
         this.enemyWeaponGroup.add(laser);
       }
     }
@@ -1213,23 +1173,23 @@ module.exports = Menu;
     {
       if (this.playerShip.currentWeapon == 1)
       {
-        var laser = new BigLaserProjectile(this.game, this.playerShip,
-          this.game.input.activePointer.x, this.game.input.activePointer.y, 'blueLaser');
+        var laser = new LaserProjectile(this.game, this.playerShip,
+          this.game.input.activePointer.x, this.game.input.activePointer.y, 'blueLaser', 0.5, 1);
         this.playerWeaponGroup.add(laser);
       }
       else if (this.playerShip.currentWeapon == 2)
       {
-        var laser = new SmallLaserProjectile(this.game, this.playerShip,
-          this.game.input.activePointer.x + 90, this.game.input.activePointer.y, 'redLaser');
+        var laser = new LaserProjectile(this.game, this.playerShip,
+          this.game.input.activePointer.x + 90, this.game.input.activePointer.y, 'redLaser', 0.25, 1);
         this.playerWeaponGroup.add(laser);
-        var laser = new SmallLaserProjectile(this.game, this.playerShip,
-          this.game.input.activePointer.x + 35, this.game.input.activePointer.y, 'redLaser');
+        var laser = new LaserProjectile(this.game, this.playerShip,
+          this.game.input.activePointer.x + 35, this.game.input.activePointer.y, 'redLaser', 0.25, 1);
         this.playerWeaponGroup.add(laser);
-        var laser = new SmallLaserProjectile(this.game, this.playerShip,
-          this.game.input.activePointer.x - 35, this.game.input.activePointer.y, 'redLaser');
+        var laser = new LaserProjectile(this.game, this.playerShip,
+          this.game.input.activePointer.x - 35, this.game.input.activePointer.y, 'redLaser', 0.25, 1);
         this.playerWeaponGroup.add(laser);
-        var laser = new SmallLaserProjectile(this.game, this.playerShip,
-          this.game.input.activePointer.x - 90, this.game.input.activePointer.y, 'redLaser');
+        var laser = new LaserProjectile(this.game, this.playerShip,
+          this.game.input.activePointer.x - 90, this.game.input.activePointer.y, 'redLaser', 0.25, 1);
         this.playerWeaponGroup.add(laser);
       }
       else if (this.playerShip.currentWeapon == 3)
@@ -1248,7 +1208,7 @@ module.exports = Menu;
 
   module.exports = Play;
 
-},{"../prefabs/BaseEnemyShip":2,"../prefabs/BigLaserProjectile":3,"../prefabs/BossEnemyShip":4,"../prefabs/MissileProjectile":5,"../prefabs/NavPoint":6,"../prefabs/PlayerShip":7,"../prefabs/RogueEnemyShip":8,"../prefabs/SmallLaserProjectile":10}],15:[function(require,module,exports){
+},{"../prefabs/BaseEnemyShip":2,"../prefabs/BossEnemyShip":3,"../prefabs/LaserProjectile":4,"../prefabs/MissileProjectile":5,"../prefabs/NavPoint":6,"../prefabs/PlayerShip":7,"../prefabs/RogueEnemyShip":8}],14:[function(require,module,exports){
 
 'use strict';
 function Preload() {
