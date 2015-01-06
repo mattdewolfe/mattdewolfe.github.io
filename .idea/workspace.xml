@@ -2,41 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c62809c-cdea-4d07-b3b7-666b0f86f0c3" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\blueLaserAnim.json" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\blueLaserAnim.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\enemy_blue.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\enemy_green.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\enemy_orange.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\enemy_red.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\enemy_yellow.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\greenLaserAnim (array).json" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\greenLaserAnim.json" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\greenLaserAnim.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\greenMissle.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserBlue1.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserBlue2.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserBlue3.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserBlue4.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserGreen01.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserGreen14.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserGreen15.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserGreen16.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserRed1.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserRed2.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserRed3.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\laserRed4.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\playerShip.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\preloader.gif" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\redLaserAnim.json" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\redLaserAnim.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\waypoint.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\yellowMissle.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\assets\yeoman-logo.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\js\game.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\js\phaser.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Matts\mattdewolfe.github.io\js\phaser.min.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mattdewolfe.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,12 +27,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4206696" vertical-offset="0" max-vertical-offset="687">
-              <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+            <state vertical-scroll-proportion="-3.3333333" vertical-offset="0" max-vertical-offset="578">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/script.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.05762712" vertical-offset="0" max-vertical-offset="885">
+              <caret line="5" column="3" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#42#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -79,10 +58,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="139" />
-    <option name="y" value="135" />
-    <option name="width" value="1597" />
-    <option name="height" value="862" />
+    <option name="x" value="889" />
+    <option name="y" value="10" />
+    <option name="width" value="1036" />
+    <option name="height" value="1021" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -91,7 +70,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="1" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -107,6 +86,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -125,9 +105,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mattdewolfe.github.io" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mattdewolfe.github.io" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -137,6 +130,38 @@
     <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -153,7 +178,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="139" y="135" width="1597" height="862" extended-state="0" />
+    <frame x="889" y="10" width="1036" height="1021" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -161,19 +186,19 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24984187" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25196078" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -199,9 +224,27 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4206696" vertical-offset="0" max-vertical-offset="687">
-          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.3333333" vertical-offset="0" max-vertical-offset="578">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05762712" vertical-offset="0" max-vertical-offset="885">
+          <caret line="5" column="3" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
