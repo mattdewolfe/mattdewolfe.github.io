@@ -231,7 +231,8 @@ module.exports = Menu;
 
     // Setup audio elements
     this.levelClearedSFX = this.game.add.audio('LevelClearedSFX');
-    this.tumblerSFX = this.game.add.audio('TumblerSFX');
+    this.tumblerSetSFX = this.game.add.audio('TumblerSetSFX');
+    this.tumblerClickSFX = this.game.add.audio('TumblerClickSFX');
 
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
