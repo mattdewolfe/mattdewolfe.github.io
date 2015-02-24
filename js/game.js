@@ -82,18 +82,18 @@ TumblerRing.prototype.rotateTumblerLeft = function()
 {
   if (this.isActiveTumbler === false)
   {
-    this.angle += this.setSpeed;
+    this.angle -= this.setSpeed;
   }
   else
   {
-    this.angle += this.setSpeed;
+    this.angle += this.rotationSpeed;
   }
 };
 TumblerRing.prototype.rotateTumblerRight = function()
 {
   if (this.isActiveTumbler === false)
   {
-    this.angle += 2;
+    this.angle += this.setSpeed;
   }
   else
   {
@@ -352,7 +352,7 @@ module.exports = Menu;
       {
         this.rotateTumblerRight();
       }
-      if (this.skillUpKey.justPressed(40)==true)
+      if (this.skillUpKey.justPressed(100)==true)
       {
         this.increasePlayerSkill();
       }
