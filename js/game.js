@@ -359,7 +359,7 @@ module.exports = Menu;
       case 1:
         if (Math.abs(this.tumbler1.angle - this.tumbler2.angle) < this.tumblerPrecision)
         {
-          this.tumbler2SFX.play();
+          this.tumblerSFX.play();
           this.tumbler2.isActiveTumbler = false;
           this.tumblersSet+=1;
         }
@@ -367,7 +367,7 @@ module.exports = Menu;
       case 2:
         if (Math.abs(this.tumbler2.angle - this.tumbler3.angle) < this.tumblerPrecision)
         {
-          this.tumbler2SFX.play();
+          this.tumblerSFX.play();
           this.tumbler3.isActiveTumbler = false;
           this.tumblersSet+=1;
         }
@@ -375,7 +375,7 @@ module.exports = Menu;
       case 3:
         if (Math.abs(this.tumbler3.angle - this.tumbler4.angle) < this.tumblerPrecision)
         {
-          this.tumbler2SFX.play();
+          this.tumblerSFX.play();
           this.tumbler4.isActiveTumbler = false;
           this.tumblersSet+=1;
         }
