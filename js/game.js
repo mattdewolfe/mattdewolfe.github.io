@@ -208,11 +208,21 @@ module.exports = Menu;
   {
     // Simple scaling difficulty value that increases each time a level is cleared
     this.difficulty = 0;
+    // Current level player is on
     this.currentLevel = 0;
+    // Amount of time to play the game
     this.timeToPlay = 30.0;
+    // Simple flag for calling game over function once, and only once
     this.isGameOver = false;
+    // Starting skill level for the player
     this.playerSkill = 3;
+    // Skill cap
     this.maxSkillLevel = 10;
+    // Simple flag for playing click sound only once per alignment
+    this.areCurrentTumblersAligned = false;
+
+    // Number of degrees two tumblers must be within of each other in order to set
+    this.tumblerPrecision = 6;
     // Create a timer to track play time
     this.completionTimer = this.game.time.create(false);
     this.completionTimer.loop(10, this.timerTicks, this);
@@ -223,8 +233,7 @@ module.exports = Menu;
     this.levelClearedSFX = this.game.add.audio('LevelClearedSFX');
     this.tumblerSFX = this.game.add.audio('TumblerSFX');
 
-    // Number of degrees two tumblers must be within of each other in order to set
-    this.tumblerPrecision = 5;
+
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
     // Initialize group of tumblers
@@ -365,10 +374,63 @@ module.exports = Menu;
       {
         this.roundOver();
       }
+      this.checkForClickSound();
     }
     // Update timer text
     this.timerText.setText("Time Remaining: " + this.timeToPlay.toFixed(2));
     this.skillText.setText("Skill: " + this.playerSkill);
+  },
+  // Check for tumbler alignment to play audible queue
+  checkForClickSound: function()
+  {
+    switch (this.tumblersSet)
+    {
+      case 1:
+        if (Math.abs(this.tumbler1.angle - this.tumbler2.angle) < this.tumblerPrecision)
+        {
+          if (this.areCurrentTumblersAligned == false)
+          {
+            this.areCurrentTumblersAligned = true;
+            this.tumblerClickSFX.play();
+          }
+        }
+        else
+        {
+          this.areCurrentTumblersAligned = false;
+        }
+        break;
+      case 2:
+        if (Math.abs(this.tumbler2.angle - this.tumbler3.angle) < this.tumblerPrecision)
+        {
+          if (this.areCurrentTumblersAligned == false)
+          {
+            this.areCurrentTumblersAligned = true;
+            this.tumblerClickSFX.play();
+          }
+        }
+        else
+        {
+          this.areCurrentTumblersAligned = false;
+        }
+        break;
+      case 3:
+        if (Math.abs(this.tumbler3.angle - this.tumbler4.angle) < this.tumblerPrecision)
+        {
+          if (this.areCurrentTumblersAligned == false)
+          {
+            this.areCurrentTumblersAligned = true;
+            this.tumblerClickSFX.play();
+          }
+        }
+        else
+        {
+          this.areCurrentTumblersAligned = false;
+        }
+        break;
+      default:
+
+        break;
+    }
   },
   // Increase the players skill, this will apply to the next level
   increasePlayerSkill: function()
@@ -389,7 +451,7 @@ module.exports = Menu;
       case 1:
         if (Math.abs(this.tumbler1.angle - this.tumbler2.angle) < this.tumblerPrecision)
         {
-          this.tumblerSFX.play();
+          this.tumblerSetSFX.play();
           this.tumbler2.isActiveTumbler = false;
           this.tumblersSet+=1;
         }
@@ -397,7 +459,7 @@ module.exports = Menu;
       case 2:
         if (Math.abs(this.tumbler2.angle - this.tumbler3.angle) < this.tumblerPrecision)
         {
-          this.tumblerSFX.play();
+          this.tumblerSetSFX.play();
           this.tumbler3.isActiveTumbler = false;
           this.tumblersSet+=1;
         }
@@ -405,7 +467,7 @@ module.exports = Menu;
       case 3:
         if (Math.abs(this.tumbler3.angle - this.tumbler4.angle) < this.tumblerPrecision)
         {
-          this.tumblerSFX.play();
+          this.tumblerSetSFX.play();
           this.tumbler4.isActiveTumbler = false;
           this.tumblersSet+=1;
         }
@@ -544,8 +606,8 @@ Preload.prototype = {
 
     // Load up audio
     this.game.load.audio('LevelClearedSFX', 'assets/audio/jingle.ogg');
-    this.game.load.audio('TumblerSFX'    , 'assets/audio/phaserUp1.ogg');
-
+    this.game.load.audio('TumblerSetSFX'    , 'assets/audio/phaserUp1.ogg');
+    this.game.load.audio('TumblerClickSFX'    , 'assets/audio/metalClick.ogg');
 
     // Load up sprites
     this.load.image('BlueRingSprite', 'assets/blueRing.png');
