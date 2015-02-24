@@ -212,9 +212,7 @@ module.exports = Menu;
 
     // Setup audio elements
     this.levelClearedSFX = this.game.add.audio('LevelClearedSFX');
-    this.tumbler2SFX = this.game.add.audio('Tumbler2SFX');
-    this.tumbler3SFX = this.game.add.audio('Tumbler3SFX');
-    this.tumbler4SFX = this.game.add.audio('Tumbler4SFX');
+    this.tumblerSFX = this.game.add.audio('TumblerSFX');
 
     // Number of degrees two tumblers must be within of each other in order to set
     this.tumblerPrecision = 5;
@@ -369,7 +367,7 @@ module.exports = Menu;
       case 2:
         if (Math.abs(this.tumbler2.angle - this.tumbler3.angle) < this.tumblerPrecision)
         {
-          this.tumbler3SFX.play();
+          this.tumbler2SFX.play();
           this.tumbler3.isActiveTumbler = false;
           this.tumblersSet+=1;
         }
@@ -377,7 +375,7 @@ module.exports = Menu;
       case 3:
         if (Math.abs(this.tumbler3.angle - this.tumbler4.angle) < this.tumblerPrecision)
         {
-          this.tumbler4SFX.play();
+          this.tumbler2SFX.play();
           this.tumbler4.isActiveTumbler = false;
           this.tumblersSet+=1;
         }
@@ -409,11 +407,11 @@ module.exports = Menu;
     this.tumbler2.angle += Math.floor((Math.random() * 360) + 1);
     this.tumblerGroup.add(this.tumbler2);
 
-    this.tumbler3 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'GreenRingSprite', (this.difficulty*2), true);
+    this.tumbler3 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'GreenRingSprite', (this.difficulty/2), true);
     this.tumbler3.angle += Math.floor((Math.random() * 360) + 1);
     this.tumblerGroup.add(this.tumbler3);
 
-    this.tumbler4 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'WhiteRingSprite', (this.difficulty%3 + 1), true);
+    this.tumbler4 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'WhiteRingSprite', (this.difficulty + 3), true);
     this.tumbler4.angle += Math.floor((Math.random() * 360) + 1);
     this.tumblerGroup.add(this.tumbler4);
 
@@ -470,13 +468,13 @@ module.exports = Menu;
       var tempFriend;
       for (var i = 0; i < this.currentLevel-1; i++)
       {
-        tempFriend = new Character(this.game, 50 + (50*i), this.game.height/2, 'FriendoHappy');
+        tempFriend = new Character(this.game, 50 + (60*i), this.game.height/2, 'FriendoHappy');
         this.victoryGroup.add(tempFriend);
       }
 
       this.victoryText = this.game.add.text(200,
         80,
-        "You saved " +this.currentLevel-1 + " friends!", {
+        "You saved " + (this.currentLevel-1) + " friends!", {
           font: "28px Arial",
           fill: "#ff0044",
           align: "center" });
@@ -513,9 +511,8 @@ Preload.prototype = {
 
     // Load up audio
     this.game.load.audio('LevelClearedSFX', 'assets/audio/jingle.ogg');
-    this.game.load.audio('Tumbler2SFX'    , 'assets/audio/phaserUp1.ogg');
-    this.game.load.audio('Tumbler3SFX'    , 'assets/audio/phaserUp2.ogg3');
-    this.game.load.audio('Tumbler4SFX'    , 'assets/audio/phaserUp7.ogg');
+    this.game.load.audio('TumblerSFX'    , 'assets/audio/phaserUp1.ogg');
+
 
     // Load up sprites
     this.load.image('BlueRingSprite', 'assets/blueRing.png');
