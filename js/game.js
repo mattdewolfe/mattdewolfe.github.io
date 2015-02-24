@@ -50,7 +50,7 @@ module.exports = Character;
 'use strict';
 
 // need to add in steering requisite
-var TumblerRing = function(game, x, y, image, rotation, isActive) {
+var TumblerRing = function(game, x, y, image, rotation, isActive, skillLevel) {
   Phaser.Sprite.call(this, game, x, y, image);
 
   this.game.add.existing(this);
@@ -58,6 +58,7 @@ var TumblerRing = function(game, x, y, image, rotation, isActive) {
   // Class parameters
   // Rotation speed of tumbler when active
   this.rotationSpeed = rotation;
+  this.setSpeed = skillLevel;
   // Active flag denotes a tumbler is not locked in yet
   this.isActiveTumbler = isActive;
 
@@ -81,11 +82,11 @@ TumblerRing.prototype.rotateTumblerLeft = function()
 {
   if (this.isActiveTumbler === false)
   {
-    this.angle += -2;
+    this.angle += this.setSpeed;
   }
   else
   {
-    this.angle += this.rotationSpeed;
+    this.angle += this.setSpeed;
   }
 };
 TumblerRing.prototype.rotateTumblerRight = function()
@@ -203,7 +204,8 @@ module.exports = Menu;
     this.currentLevel = 0;
     this.timeToPlay = 30.0;
     this.isGameOver = false;
-
+    this.playerSkill = 2;
+    this.maxSkillLevel = 10;
     // Create a timer to track play time
     this.completionTimer = this.game.time.create(false);
     this.completionTimer.loop(10, this.timerTicks, this);
@@ -226,7 +228,7 @@ module.exports = Menu;
     this.tumblerGroup = this.game.add.group();
 
     // Setup sprites for our player and his friend (inside the prison)
-    this.playerSprite = new Character(this.game, 60, 500, 'PlayerSad');
+    this.playerSprite = new Character(this.game, 60, 460, 'PlayerSad');
     this.friendSprite = new Character(this.game, this.game.width/2, this.game.height/2, 'FriendoSad');
 
     // Setup button to dispaly on level clear
@@ -255,6 +257,12 @@ module.exports = Menu;
       font: "26px Arial",
       fill: "#ff0044",
       align: "center" });
+    this.skillText = this.game.add.text(30,
+      520,
+      "Skill:", {
+        font: "26px Arial",
+        fill: "#ff0044",
+        align: "center" });
     this.timerText = this.game.add.text(this.game.width - 280,
       550,
       "Time Remaining: ", {
@@ -264,8 +272,10 @@ module.exports = Menu;
 
 
     // Setup listener functions
-    this.rotateLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rotateRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    this.rotateLeftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    this.rotateRightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    this.skillUpKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+
     this.tumblersSet = 1;
     this.nextLevel();
   },
@@ -334,13 +344,17 @@ module.exports = Menu;
     else
     {
       // First check for key presses to rotate active tumbler
-      if (this.rotateLeft.isDown)
+      if (this.rotateLeftKey.isDown)
       {
         this.rotateTumblerLeft();
       }
-      if (this.rotateRight.isDown)
+      if (this.rotateRightKey.isDown)
       {
         this.rotateTumblerRight();
+      }
+      if (this.skillUpKey.justPressed(40)==true)
+      {
+        this.increasePlayerSkill();
       }
       // If all 4 tumblers are set, the round is over
       if (this.tumblersSet >= 4)
@@ -349,8 +363,20 @@ module.exports = Menu;
       }
     }
     // Update timer text
-    this.timerText.setText("Time Remaining: " + this.timeToPlay.toFixed(2))
+    this.timerText.setText("Time Remaining: " + this.timeToPlay.toFixed(2));
+    this.skillText.setText("Skill: " + this.playerSkill);
   },
+  // Increase the players skill, this will apply to the next level
+  increasePlayerSkill: function()
+  {
+    this.playerSkill += 1;
+    // Clamp to max
+    if (this.playerSkill > this.maxSkillLevel)
+    {
+      this.playerSkill = this.maxSkillLevel;
+    }
+  },
+
   // Check the alignment off the tumblers
   checkAlignment: function()
   {
@@ -399,19 +425,23 @@ module.exports = Menu;
 
     // Create 4 new tumbler rings, passing in the difficulty with additional parameters to create variety in spin speed
     // as well as setting default angle to a random value between 1 and 360
-    this.tumbler1 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'RedRingSprite', this.difficulty, false);
+    this.tumbler1 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'RedRingSprite',
+      12 - this.playerSkill, false, this.playerSkill);
     this.tumbler1.angle += Math.floor((Math.random() * 360) + 1);
     this.tumblerGroup.add(this.tumbler1);
 
-    this.tumbler2 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'BlueRingSprite', (this.difficulty+2)*-1, true);
+    this.tumbler2 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'BlueRingSprite',
+      (this.difficulty+2)*-1, true, this.playerSkill);
     this.tumbler2.angle += Math.floor((Math.random() * 360) + 1);
     this.tumblerGroup.add(this.tumbler2);
 
-    this.tumbler3 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'GreenRingSprite', (this.difficulty/2), true);
+    this.tumbler3 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'GreenRingSprite',
+      (this.difficulty/2), true, this.playerSkill);
     this.tumbler3.angle += Math.floor((Math.random() * 360) + 1);
     this.tumblerGroup.add(this.tumbler3);
 
-    this.tumbler4 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'WhiteRingSprite', (this.difficulty + 3), true);
+    this.tumbler4 = new TumblerRing(this.game, this.game.width/2, this.game.height/2, 'WhiteRingSprite',
+      (this.difficulty + 3), true, this.playerSkill);
     this.tumbler4.angle += Math.floor((Math.random() * 360) + 1);
     this.tumblerGroup.add(this.tumbler4);
 
@@ -472,7 +502,7 @@ module.exports = Menu;
         this.victoryGroup.add(tempFriend);
       }
 
-      this.victoryText = this.game.add.text(200,
+      this.victoryText = this.game.add.text(250,
         80,
         "You saved " + (this.currentLevel-1) + " friends!", {
           font: "28px Arial",
