@@ -178,6 +178,13 @@ Menu.prototype = {
     this.instructionText = this.game.add.bitmapText(this.game.width/2 - 175, this.game.height/2.25,
       'spaceagefont', 'Click anywhere to begin', 20);
 
+    this.instructionsText1 = this.game.add.bitmapText(30, this.game.height/1.75,
+      'spaceagefont', 'Rotate the active tumbler with the left/right arrows', 18);
+
+    this.instructionsText2 = this.game.add.bitmapText(50, this.game.height/1.5,
+      'spaceagefont', 'Click the Fist icon when two tumblers are lined up', 18);
+
+
     this.creditText = this.game.add.bitmapText(25, this.game.height - 25,
       'spaceagefont', 'by Matt De Wolfe', 20);
   },
@@ -243,13 +250,10 @@ module.exports = Menu;
     this.setTumblerIcon.inputEnabled = true;
     this.setTumblerIcon.events.onInputDown.add(this.tumblerSet, this);
 
-    this.instructionsText1 = this.game.add.bitmapText(30, 10,
-      'spaceagefont', 'Rotate the active tumbler with the left/right arrows', 18);
+    this.instructionsText1 = this.game.add.bitmapText(5, 30,
+      'spaceagefont', 'Higher player skill will make for more precise movements', 18);
 
-    this.instructionsText2 = this.game.add.bitmapText(100, 35,
-      'spaceagefont', 'Click the Fist icon two tumblers are lined up', 18);
-
-    this.instructionsText3 = this.game.add.bitmapText(160, 60,
+    this.instructionsText2 = this.game.add.bitmapText(160, 60,
       'spaceagefont', 'Start from the inside and work out', 18);
     this.hudText = this.game.add.text(30,
       550,
@@ -474,7 +478,6 @@ module.exports = Menu;
     // Clear all the sprites we do not want on screen
     this.instructionsText1.visible = false
     this.instructionsText2.visible = false;
-    this.instructionsText3.visible = false;
     this.tumblerGroup.visible = false;
     this.setTumblerIcon.visible = false;
     this.levelClearedSprite.visible = false;
