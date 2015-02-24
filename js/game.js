@@ -58,7 +58,7 @@ var TumblerRing = function(game, x, y, image, rotation, isActive, skillLevel) {
   // Class parameters
   // Rotation speed of tumbler when active
   this.rotationSpeed = rotation;
-  this.setSpeed = skillLevel;
+  this.setSpeed = 12 - skillLevel;
   // Active flag denotes a tumbler is not locked in yet
   this.isActiveTumbler = isActive;
 
@@ -204,7 +204,7 @@ module.exports = Menu;
     this.currentLevel = 0;
     this.timeToPlay = 30.0;
     this.isGameOver = false;
-    this.playerSkill = 2;
+    this.playerSkill = 3;
     this.maxSkillLevel = 10;
     // Create a timer to track play time
     this.completionTimer = this.game.time.create(false);
