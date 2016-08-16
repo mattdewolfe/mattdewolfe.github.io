@@ -10,7 +10,7 @@
             "smelly",
             "pompous",
             "communist",
-            "dicknose",
+            "dicknosed",
             "pie-eating",
             "racist",
             "elitist",
@@ -18,8 +18,19 @@
             "millenial",
             "drug-loving",
             "tone deaf",
-            "mouth breathing",
-            "creepy"
+            "mouth breather",
+            "indignant",
+            "self-righteous",
+            "self-loathing",
+            "inglorious",
+            "over compensating",
+            "brutal",
+            "careless",
+            "tasteless",
+            "classless",
+            "homeless",
+            "helpless",
+            "loveless"
         ],
         "nouns": [
             "douche",
@@ -38,7 +49,10 @@
             "boner",
             "shart",
             "nut",
-            "sphincter"
+            "sphincter",
+            "trash",
+            "fly",
+            "insect"
         ],
         "pronouns": [
             "pilot",
@@ -50,6 +64,7 @@
             "box",
             "jockey",
             "nazi",
+            "roach",
             "waffle",
             "goblin",
             "blossum",
@@ -59,9 +74,48 @@
             "monster",
             "hound",
             "dragon",
-            "balloon"
+            "balloon",
+            "hooker",
+            "admiral",
+            "astronaut",
+            "skater",
+            "wanna-be"
         ],
-        "adverbs": [],
-        "verbs": []
+        "adverbsHow": [
+            "angrily",
+            "anxiouslly",
+            "barely",
+            "brutally",
+            "briefly",
+            "constantly",
+            "crossly",
+            "elegantly",
+            "easily",
+            "fondly",
+            "foolishly",
+            "gingerly",
+            "hardly",
+            "lazily",
+            "loudly",
+            "merrily",
+            "noisily",
+            "painfully",
+            "poorly",
+            "selfishly",
+            "silently",
+            "softly",
+            "swiftly",
+            "thoroughly"
+        ],
+        "actionVerbs": [
+            "scraping",
+            "dipping",
+            "licking",
+            "fucking",
+            "banging",
+            "tasting",
+            "scratching",
+            "tasting"
+        ]
     }
 }
