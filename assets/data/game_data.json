@@ -30,36 +30,130 @@
             "classless",
             "homeless",
             "helpless",
-            "loveless"
+            "loveless",
+            "retarded",
+            "mental",
+            "butter-faced"
         ],
         "nouns": [
-            "douche",
-            "ass",
-            "turd",
-            "rectum",
-            "butt",
-            "cock",
-            "shit",
-            "crotch",
-            "turd",
-            "horse",
-            "slut",
-            "chum",
-            "dick",
-            "boner",
-            "shart",
-            "nut",
-            "sphincter",
-            "trash",
-            "fly",
-            "insect"
+            {
+                "single": "douche",
+                "plural": "douches"
+            },
+            {
+                "single": "ass",
+                "plural": "asses"
+            },
+            {
+                "single": "turd",
+                "plural": "turds"
+            },
+            {
+                "single": "rectum",
+                "plural": "rectums"
+            },
+            {
+                "single": "butt",
+                "plural": "butts"
+            },
+            {
+                "single": "cock",
+                "plural": "cocks"
+            },
+            {
+                "single": "shit",
+                "plural": "shit"
+            },
+            {
+                "single": "crotch",
+                "plural": "crotches"
+            },
+            {
+                "single": "turd",
+                "plural": "turds"
+            },
+            {
+                "single": "horse",
+                "plural": "horses"
+            },
+            {
+                "single": "slut",
+                "plural": "sluts"
+            },
+            {
+                "single": "chum",
+                "plural": "chum"
+            },
+            {
+                "single": "dick",
+                "plural": "dicks"
+            },
+            {
+                "single": "boner",
+                "plural": "boners"
+            },
+            {
+                "single": "shart",
+                "plural": "sharts"
+            },
+            {
+                "single": "nut",
+                "plural": "nuts"
+            },
+            {
+                "single": "sphincter",
+                "plural": "sphincters"
+            },
+            {
+                "single": "trash",
+                "plural": "trash"
+            },
+            {
+                "single": "fly",
+                "plural": "flies"
+            },
+            {
+                "single": "insect",
+                "plural": "insects"
+            },
+            {
+                "single": "sewage",
+                "plural": "sewage"
+            },
+            {
+                "single": "urine",
+                "plural": "urine"
+            },
+            {
+                "single": "urinal cake",
+                "plural": "urinal cakes"
+            },
+            {
+                "single": "condom",
+                "plural": "condoms"
+            },
+            {
+                "single": "tampon",
+                "plural": "tampons"
+            },
+            {
+                "single": "feces",
+                "plural": "feces"
+            },
+            {
+                "single": "turkey",
+                "plural": "turkeys"
+            },
+            {
+                "single": "mistake",
+                "plural": "mistakes"
+            }
         ],
         "pronouns": [
             "pilot",
             "canoe",
             "captain",
             "pirate",
-            "hammer",
             "knob",
             "box",
             "jockey",
@@ -79,11 +173,26 @@
             "admiral",
             "astronaut",
             "skater",
-            "wanna-be"
+            "wanna-be",
+            "recepticle",
+            "plumber",
+            "therapist",
+            "orphan",
+            "president",
+            "king",
+            "queen",
+            "prince",
+            "duke",
+            "baron",
+            "baroness",
+            "princess",
+            "pleb",
+            "hipster",
+            "peasant"
         ],
         "adverbsHow": [
             "angrily",
-            "anxiouslly",
+            "anxiously",
             "barely",
             "brutally",
             "briefly",
@@ -116,6 +225,21 @@
             "tasting",
             "scratching",
             "tasting"
+        ],
+        "actionNouns": [
+            "fucker",
+            "licker",
+            "scraper",
+            "banger",
+            "tickler",
+            "washer",
+            "diddler",
+            "sniffer",
+            "wiper",
+            "receiver",
+            "masher",
+            "smasher",
+            "pusher"
         ]
     }
 }
