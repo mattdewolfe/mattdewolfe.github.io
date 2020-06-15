@@ -1,0 +1,6 @@
+.testImage {
+    display: block;
+    background: url('img/icon-1024x1024.png') no-repeat;
+    width: 400px;
+    height: 400px;
+}
