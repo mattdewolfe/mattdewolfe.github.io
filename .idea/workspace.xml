@@ -3,32 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c2eebda0-1ef4-4358-bae9-145fc3bfeb7e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/asset-manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/img/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/icon-1024x1024.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/icon-1024x1024.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/precache-manifest.8be15cfa43e3159f2ef7f0922a2dd4ca.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-worker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/2.47e06e2e.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/2.47e06e2e.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/main.5525faff.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/main.5525faff.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/2.ccc01119.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/2.ccc01119.chunk.js.LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/2.ccc01119.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/main.d09dd5ca.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/main.d09dd5ca.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/runtime-main.1f5347da.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/runtime-main.1f5347da.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/media/Montserrat-Medium.0098f804.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/media/Montserrat-Regular.a8a11736.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/media/bannerPenelope.d9d5345d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/media/logoJujuFernWhite.7f796742.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/media/logoTweed.e900130e.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/media/penOutline.1180167a.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +33,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/img" />
+    </key>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -66,7 +48,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1420939155720</updated>
-      <workItem from="1592225211327" duration="303000" />
+      <workItem from="1592225211327" duration="1365000" />
     </task>
     <servers />
   </component>
